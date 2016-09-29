@@ -12,6 +12,8 @@ RUN mkdir /opt && \
 
 RUN apk --update add openjdk8-jre
 
+RUN cd /opt/logstash && bin/logstash-plugin install logstash-output-amazon_es
+
 RUN adduser -u ${LOGSTASH_UID} -D logstash -s /bin/bash
 RUN cp /root/.bashrc /home/logstash && \
   chown -R ${LOGSTASH_UID}:${LOGSTASH_UID} /home/logstash
@@ -21,4 +23,4 @@ WORKDIR /home/logstash
 
 EXPOSE 5000-5010
 
-ENTRYPOINT ["logstash", "-f", "/etc/logstash.conf"]
+ENTRYPOINT ["logstash", "-f", "/etc/logstash.conf", "--log", "/home/logstash/logstash.log"]
