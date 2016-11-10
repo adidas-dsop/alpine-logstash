@@ -22,5 +22,6 @@ USER logstash
 WORKDIR /home/logstash
 
 EXPOSE 5000-5010
+EXPOSE 5000-5010/udp
 
 ENTRYPOINT ["logstash", "-f", "/etc/logstash.conf", "--log", "/home/logstash/logstash.log"]
